@@ -1,4 +1,6 @@
 // ===== Default data (first time load) =====
+//
+// edit this below defaultData ater editing the portfolio
 const defaultData = {
     "name": "Vishesh Waghmore",
     "role": "Student",
@@ -6,8 +8,8 @@ const defaultData = {
     "location": "Pune, Maharashtra, India",
     "email": "visheshwaghmore01@gmail.com",
     "phone": "+91-8149365202",
-    "avatarUrl": "",
-    "resumeUrl": "file:///Users/vishesh/Downloads/VISHESH_RESUME.pdf",
+    "avatarUrl": "photo.jpg",
+    "resumeUrl": "VISHESH_RESUME.pdf",
     "skills": [
         "HTML",
         "CSS",
@@ -15,7 +17,8 @@ const defaultData = {
         "Python",
         "C",
         "C++",
-        "Java"
+        "Java",
+        "Git"
     ],
     "education": [
         {
@@ -45,6 +48,7 @@ const defaultData = {
         "twitter": ""
     }
 };
+// edit till here
 
 // ---- Safe clone (avoid structuredClone) ----
 function deepClone(obj) {
