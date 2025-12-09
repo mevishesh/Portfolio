@@ -347,14 +347,30 @@ function setupAdmin() {
     // Basic info form
     byId("basicForm").addEventListener("submit", (e) => {
         e.preventDefault();
+
+        const avatar = byId("inputAvatar").value.trim();
+        const resume = byId("inputResume").value.trim();
+
+        // Check image format if set
+        if (avatar && !/\.(jpe?g|png)$/i.test(avatar) && !avatar.startsWith("http")) {
+            alert("Profile image must be .jpg or .png (or a full https URL).");
+            return;
+        }
+
+        // Check resume format if set
+        if (resume && !/\.pdf$/i.test(resume) && !resume.startsWith("http")) {
+            alert("Resume must be a .pdf file (or a full https URL).");
+            return;
+        }
+
         data.name = byId("inputName").value.trim() || data.name;
         data.role = byId("inputRole").value.trim() || data.role;
         data.about = byId("inputAbout").value.trim() || data.about;
         data.location = byId("inputLocation").value.trim();
         data.email = byId("inputEmail").value.trim();
         data.phone = byId("inputPhone").value.trim();
-        data.avatarUrl = byId("inputAvatar").value.trim();
-        data.resumeUrl = byId("inputResume").value.trim();
+        data.avatarUrl = avatar;
+        data.resumeUrl = resume;
         data.social.github = byId("inputGithub").value.trim();
         data.social.linkedin = byId("inputLinkedin").value.trim();
         data.social.instagram = byId("inputInstagram").value.trim();
@@ -364,6 +380,7 @@ function setupAdmin() {
         renderAll();
         alert("Basic info updated!");
     });
+
 
     // Add skill
     byId("skillForm").addEventListener("submit", (e) => {
