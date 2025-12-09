@@ -25,7 +25,7 @@
             <a href="#skillMeters">Strength</a>
             <a href="#education">Education</a>
             <a href="#projects">Projects</a>
-            <a href="#services">Services</a>
+            <a href="#services">What I Do</a>
             <a href="#contact">Contact</a>
         </nav>
         <div class="nav-right">
@@ -124,26 +124,13 @@
             <div id="projectsList" class="card-grid"></div>
         </section>
 
-        <!-- Services -->
+        <!-- Services / What I Do -->
         <section id="services" class="section reveal">
             <div class="section-header">
                 <h2>What I Do</h2>
                 <span class="section-pill">Services</span>
             </div>
-            <div class="card-grid" id="servicesList">
-                <article class="card service-card">
-                    <h3>Web Development</h3>
-                    <p>I build modern, responsive websites using HTML, CSS, JavaScript and frameworks.</p>
-                </article>
-                <article class="card service-card">
-                    <h3>Python & Automation</h3>
-                    <p>Scripts and tools to automate repetitive tasks and simplify workflows.</p>
-                </article>
-                <article class="card service-card">
-                    <h3>Projects & College Work</h3>
-                    <p>Academic projects, mini-projects, and smart solutions for learning and demos.</p>
-                </article>
-            </div>
+            <div id="servicesList" class="card-grid"></div>
         </section>
 
         <!-- Contact -->
@@ -213,7 +200,7 @@
                         <input type="text" id="inputRole" required />
                     </div>
                     <div class="form-row">
-                        <label>Short Intro</label>
+                        <label>Short Intro / About</label>
                         <textarea id="inputAbout" rows="3"></textarea>
                     </div>
                     <div class="form-row">
@@ -260,7 +247,7 @@
 
             <!-- Skills -->
             <div class="admin-section">
-                <h3>Skills</h3>
+                <h3>Skills & Technologies</h3>
                 <form id="skillForm" class="admin-form-inline">
                     <input type="text" id="inputSkill" placeholder="e.g. JavaScript" />
                     <button type="submit" class="btn-sm">Add Skill</button>
@@ -269,9 +256,27 @@
                 <ul id="skillsEditable" class="chips editable"></ul>
             </div>
 
+            <!-- Strength Overview / Skill Meters -->
+            <div class="admin-section">
+                <h3>Strength Overview (Skill Meters)</h3>
+                <form id="meterForm" class="admin-form">
+                    <div class="form-row">
+                        <label>Label</label>
+                        <input type="text" id="inputMeterLabel" placeholder="e.g. Frontend" />
+                    </div>
+                    <div class="form-row">
+                        <label>Level (0 - 100)</label>
+                        <input type="number" id="inputMeterLevel" min="0" max="100" placeholder="80" />
+                    </div>
+                    <button type="submit" class="btn-full">Add Strength</button>
+                </form>
+                <p class="admin-note">Existing strength entries:</p>
+                <ul id="metersEditable" class="list-editable"></ul>
+            </div>
+
             <!-- Education -->
             <div class="admin-section">
-                <h3>Add Education</h3>
+                <h3>Education</h3>
                 <form id="eduForm" class="admin-form">
                     <div class="form-row">
                         <label>Degree</label>
@@ -297,7 +302,7 @@
 
             <!-- Projects -->
             <div class="admin-section">
-                <h3>Add Project</h3>
+                <h3>Projects</h3>
                 <form id="projectForm" class="admin-form">
                     <div class="form-row">
                         <label>Title</label>
@@ -323,6 +328,24 @@
                 </form>
                 <p class="admin-note">Existing projects:</p>
                 <ul id="projEditable" class="list-editable"></ul>
+            </div>
+
+            <!-- Services / What I Do -->
+            <div class="admin-section">
+                <h3>What I Do (Services)</h3>
+                <form id="serviceForm" class="admin-form">
+                    <div class="form-row">
+                        <label>Title</label>
+                        <input type="text" id="inputServiceTitle" placeholder="e.g. Web Development" />
+                    </div>
+                    <div class="form-row">
+                        <label>Description</label>
+                        <textarea id="inputServiceDesc" rows="2" placeholder="Short description"></textarea>
+                    </div>
+                    <button type="submit" class="btn-full">Add Service</button>
+                </form>
+                <p class="admin-note">Existing services:</p>
+                <ul id="servicesEditable" class="list-editable"></ul>
             </div>
 
             <!-- Actions -->

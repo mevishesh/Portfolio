@@ -1,69 +1,60 @@
 // ===== Default data (first time load) =====
 const defaultData = {
-    "name": "Vishesh Waghmore",
-    "role": "Student",
-    "about": "I am a passionate student who loves building web apps, solving problems, and exploring new technologies.",
-    "location": "Pune, Maharashtra, India",
-    "email": "visheshwaghmore01@gmail.com",
-    "phone": "+91-8149365202",
-    "avatarUrl": "photo.jpg",
-    "resumeUrl": "VISHESH_RESUME.pdf",
-    "skills": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Python",
-        "C",
-        "C++",
-        "Java",
-        "Cloud Computing",
-        "Cyber Security",
-        "Mobile Application Development"
+    name: "Your Name",
+    role: "Full Stack Developer & Student",
+    about:
+        "I am a passionate developer who loves building web apps, solving problems, and exploring new technologies.",
+    location: "Maharashtra, India",
+    email: "you@example.com",
+    phone: "+91-0000000000",
+    avatarUrl: "",
+    resumeUrl: "",
+    // Skill chips
+    skills: ["HTML", "CSS", "JavaScript", "Python"],
+    // Skill meters (Strength Overview)
+    skillMeters: [
+        { label: "Frontend", level: 80 },
+        { label: "Backend", level: 60 },
+        { label: "Databases", level: 55 },
+        { label: "Python / Scripts", level: 75 }
     ],
-    "skillMeters": [
+    education: [
         {
-            "label": "Frontend",
-            "level": 80
-        },
-        {
-            "label": "Backend",
-            "level": 60
-        },
-        {
-            "label": "Databases",
-            "level": 55
-        },
-        {
-            "label": "Python / Scripts",
-            "level": 75
+            degree: "Diploma in Computer Engineering",
+            school: "Your College Name",
+            year: "2022 - 2025",
+            details: "Focused on software development, networking, and security."
         }
     ],
-    "education": [
+    projects: [
         {
-            "degree": "Diploma In Computer Engineering",
-            "school": "Government Polytechnic Pune",
-            "year": "2023-2026",
-            "details": ""
+            title: "Smart & Secure Attendance System",
+            tech: ["Python", "OpenCV", "SQLite"],
+            description:
+                "Face recognition-based attendance system with admin panel and notification features.",
+            github: "",
+            liveDemo: ""
         }
     ],
-    "projects": [
+    services: [
         {
-            "title": "Smart & Secure Attendance System",
-            "tech": [
-                "Python",
-                "OpenCV",
-                "SQLite"
-            ],
-            "description": "Face recognition-based attendance system with admin panel and notification features.",
-            "github": "",
-            "liveDemo": ""
+            title: "Web Development",
+            description: "Building responsive, modern websites using HTML, CSS and JavaScript."
+        },
+        {
+            title: "Python & Automation",
+            description: "Scripts and tools to automate repetitive tasks and simplify workflows."
+        },
+        {
+            title: "Academic & Mini Projects",
+            description: "Smart projects suitable for diplomas, internships and learning."
         }
     ],
-    "social": {
-        "github": "https://github.com/mevishesh",
-        "linkedin": "https://www.linkedin.com/in/vishesh-waghmore-5588372b2/",
-        "instagram": "https://www.instagram.com/visheshwaghmore/",
-        "twitter": ""
+    social: {
+        github: "",
+        linkedin: "",
+        instagram: "",
+        twitter: ""
     }
 };
 
@@ -276,6 +267,27 @@ function renderSkillMeters() {
         card.appendChild(bar);
         container.appendChild(card);
     });
+
+    // Editable list for meters
+    const metersEditable = byId("metersEditable");
+    metersEditable.innerHTML = "";
+    meters.forEach((m, index) => {
+        const li = createEl("li");
+        const span = createEl("span");
+        span.textContent = `${m.label} – ${m.level}%`;
+        const btn = createEl("button");
+        btn.textContent = "Delete";
+        btn.addEventListener("click", () => {
+            if (confirm(`Delete strength "${m.label}"?`)) {
+                data.skillMeters.splice(index, 1);
+                saveData();
+                renderAll();
+            }
+        });
+        li.appendChild(span);
+        li.appendChild(btn);
+        metersEditable.appendChild(li);
+    });
 }
 
 function renderEducation() {
@@ -410,7 +422,6 @@ function renderProjects() {
         // Click to open modal
         card.style.cursor = "pointer";
         card.addEventListener("click", (e) => {
-            // don't trigger if they click the links
             if (e.target.tagName.toLowerCase() === "a") return;
             openProjectModal(index);
         });
@@ -436,6 +447,43 @@ function renderProjects() {
         li.appendChild(span);
         li.appendChild(btn);
         projEditable.appendChild(li);
+    });
+}
+
+function renderServices() {
+    const container = byId("servicesList");
+    container.innerHTML = "";
+    const services = data.services || [];
+    services.forEach((svc) => {
+        const card = createEl("article", "card reveal");
+        const h3 = createEl("h3");
+        h3.textContent = svc.title;
+        const p = createEl("p");
+        p.textContent = svc.description || "";
+        card.appendChild(h3);
+        card.appendChild(p);
+        container.appendChild(card);
+    });
+
+    // Editable list
+    const servicesEditable = byId("servicesEditable");
+    servicesEditable.innerHTML = "";
+    services.forEach((svc, index) => {
+        const li = createEl("li");
+        const span = createEl("span");
+        span.textContent = svc.title;
+        const btn = createEl("button");
+        btn.textContent = "Delete";
+        btn.addEventListener("click", () => {
+            if (confirm(`Delete service "${svc.title}"?`)) {
+                data.services.splice(index, 1);
+                saveData();
+                renderAll();
+            }
+        });
+        li.appendChild(span);
+        li.appendChild(btn);
+        servicesEditable.appendChild(li);
     });
 }
 
@@ -484,6 +532,7 @@ function renderAll() {
     renderSkillMeters();
     renderEducation();
     renderProjects();
+    renderServices();
     renderSocial();
     renderAdminForms();
     setupScrollReveal(); // re-init for new elements
@@ -492,7 +541,7 @@ function renderAll() {
 // ===== Scroll reveal (IntersectionObserver) =====
 function setupScrollReveal() {
     const revealEls = document.querySelectorAll(".reveal, .meter-card, .timeline-item, .card");
-    const meters = document.querySelectorAll(".meter-fill");
+    const meters = document.querySelectorAll(".meter-card");
 
     const observer = new IntersectionObserver(
         (entries) => {
@@ -501,10 +550,10 @@ function setupScrollReveal() {
                     entry.target.classList.add("reveal-visible");
                     observer.unobserve(entry.target);
 
-                    // If this is a meter card fill, animate inner bar
+                    // If this is a meter card, animate inner bar
                     if (entry.target.classList.contains("meter-card")) {
                         const fill = entry.target.querySelector(".meter-fill");
-                        const idx = Array.from(document.querySelectorAll(".meter-card")).indexOf(entry.target);
+                        const idx = Array.from(meters).indexOf(entry.target);
                         const meter = (data.skillMeters || [])[idx];
                         if (fill && meter) {
                             fill.style.width = (meter.level || 0) + "%";
@@ -594,6 +643,24 @@ function setupAdmin() {
         renderAll();
     });
 
+    // Add skill meter
+    byId("meterForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const label = byId("inputMeterLabel").value.trim();
+        const levelStr = byId("inputMeterLevel").value.trim();
+        if (!label) return;
+        let level = parseInt(levelStr, 10);
+        if (isNaN(level)) level = 0;
+        if (level < 0) level = 0;
+        if (level > 100) level = 100;
+
+        data.skillMeters.push({ label, level });
+        byId("inputMeterLabel").value = "";
+        byId("inputMeterLevel").value = "";
+        saveData();
+        renderAll();
+    });
+
     // Add education
     byId("eduForm").addEventListener("submit", (e) => {
         e.preventDefault();
@@ -638,6 +705,20 @@ function setupAdmin() {
         byId("inputProjDesc").value = "";
         byId("inputProjGithub").value = "";
         byId("inputProjLive").value = "";
+        saveData();
+        renderAll();
+    });
+
+    // Add service
+    byId("serviceForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = byId("inputServiceTitle").value.trim();
+        const description = byId("inputServiceDesc").value.trim();
+        if (!title) return;
+
+        data.services.push({ title, description });
+        byId("inputServiceTitle").value = "";
+        byId("inputServiceDesc").value = "";
         saveData();
         renderAll();
     });
