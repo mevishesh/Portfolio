@@ -22,11 +22,16 @@
         <nav class="nav-links">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
+            <a href="#skillMeters">Strength</a>
             <a href="#education">Education</a>
             <a href="#projects">Projects</a>
+            <a href="#services">Services</a>
             <a href="#contact">Contact</a>
         </nav>
         <div class="nav-right">
+            <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
+                <span id="themeIcon">🌙</span>
+            </button>
             <button id="toggleAdminBtn" class="btn-sm">Edit</button>
         </div>
     </header>
@@ -37,21 +42,25 @@
             <div class="hero-main fade-up">
                 <p class="hero-badge">Portfolio</p>
                 <h1 id="heroName">Your Name</h1>
-                <h2 id="heroRole">Your Role</h2>
+
+                <!-- Typing effect wrapper -->
+                <h2 class="typing-wrapper">
+                    <span id="heroRole"></span>
+                    <span class="typing-caret"></span>
+                </h2>
+
                 <p id="heroAbout" class="hero-text">
                     Intro about you will appear here.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn">View Projects</a>
                     <a href="#contact" class="btn-outline">Contact Me</a>
-                    <!-- NEW: Resume button -->
                     <a id="resumeBtn" href="#" class="btn-outline" target="_blank" rel="noopener">View Resume</a>
                 </div>
             </div>
             <div class="hero-card fade-up-delayed">
                 <div class="hero-card-header">
                     <div class="avatar-placeholder">
-                        <!-- NEW: real image + fallback emoji -->
                         <img id="avatarImg" alt="Profile photo" />
                         <span id="avatarEmoji">👨‍💻</span>
                     </div>
@@ -71,7 +80,7 @@
 
     <main>
         <!-- About -->
-        <section id="about" class="section">
+        <section id="about" class="section reveal">
             <div class="section-header">
                 <h2>About Me</h2>
                 <span class="section-pill">Who I am</span>
@@ -79,8 +88,8 @@
             <p id="aboutText" class="section-text"></p>
         </section>
 
-        <!-- Skills -->
-        <section id="skills" class="section">
+        <!-- Skills (chips) -->
+        <section id="skills" class="section reveal">
             <div class="section-header">
                 <h2>Skills & Technologies</h2>
                 <span class="section-pill">What I use</span>
@@ -88,17 +97,26 @@
             <ul id="skillsList" class="chips"></ul>
         </section>
 
-        <!-- Education -->
-        <section id="education" class="section">
+        <!-- Skill Meters -->
+        <section id="skillMeters" class="section reveal">
+            <div class="section-header">
+                <h2>Strength Overview</h2>
+                <span class="section-pill">Skill levels</span>
+            </div>
+            <div id="skillMeterList" class="meter-grid"></div>
+        </section>
+
+        <!-- Education (timeline style) -->
+        <section id="education" class="section reveal">
             <div class="section-header">
                 <h2>Education</h2>
                 <span class="section-pill">My Journey</span>
             </div>
-            <div id="educationList" class="card-grid"></div>
+            <div id="educationList" class="timeline"></div>
         </section>
 
         <!-- Projects -->
-        <section id="projects" class="section">
+        <section id="projects" class="section reveal">
             <div class="section-header">
                 <h2>Projects</h2>
                 <span class="section-pill">Things I built</span>
@@ -106,8 +124,30 @@
             <div id="projectsList" class="card-grid"></div>
         </section>
 
+        <!-- Services -->
+        <section id="services" class="section reveal">
+            <div class="section-header">
+                <h2>What I Do</h2>
+                <span class="section-pill">Services</span>
+            </div>
+            <div class="card-grid" id="servicesList">
+                <article class="card service-card">
+                    <h3>Web Development</h3>
+                    <p>I build modern, responsive websites using HTML, CSS, JavaScript and frameworks.</p>
+                </article>
+                <article class="card service-card">
+                    <h3>Python & Automation</h3>
+                    <p>Scripts and tools to automate repetitive tasks and simplify workflows.</p>
+                </article>
+                <article class="card service-card">
+                    <h3>Projects & College Work</h3>
+                    <p>Academic projects, mini-projects, and smart solutions for learning and demos.</p>
+                </article>
+            </div>
+        </section>
+
         <!-- Contact -->
-        <section id="contact" class="section">
+        <section id="contact" class="section reveal">
             <div class="section-header">
                 <h2>Contact & Socials</h2>
                 <span class="section-pill">Let’s connect</span>
@@ -118,6 +158,11 @@
                     <p><strong>Location:</strong> <span id="contactLocation"></span></p>
                     <p><strong>Email:</strong> <a id="contactEmail" href="#"></a></p>
                     <p><strong>Phone:</strong> <span id="contactPhone"></span></p>
+
+                    <div class="quick-contact">
+                        <a id="quickMail" href="#" class="btn-sm-outline">Email Me</a>
+                        <a id="quickWhatsApp" href="#" class="btn-sm-outline">WhatsApp</a>
+                    </div>
                 </div>
                 <div class="contact-card">
                     <h3>Social Links</h3>
@@ -134,6 +179,18 @@
             <span id="footerName"></span>. All rights reserved.
         </p>
     </footer>
+
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="projectModalClose">✕</button>
+            <h3 id="modalProjectTitle"></h3>
+            <p id="modalProjectTech" class="muted"></p>
+            <p id="modalProjectDesc"></p>
+            <div id="modalProjectLinks" class="card-links"></div>
+        </div>
+    </div>
 
     <!-- Admin / Edit Panel -->
     <aside id="adminPanel" class="admin-panel hidden">
@@ -172,7 +229,6 @@
                         <input type="text" id="inputPhone" />
                     </div>
 
-                    <!-- NEW: avatar and resume -->
                     <div class="form-row">
                         <label>Profile Image (JPG / PNG)</label>
                         <input type="text" id="inputAvatar" placeholder="photo.jpg or images/me.png or https://..." />
@@ -275,7 +331,7 @@
                 <button id="exportDataBtn" class="btn-full secondary">Export Data (JSON)</button>
                 <button id="resetDataBtn" class="btn-full danger">Reset to Default</button>
                 <p class="admin-note">
-                    Data is stored in your browser (localStorage). Reset will clear your changes.
+                    Data is stored in your browser (localStorage). Reset will clear your changes on this device.
                 </p>
                 <textarea id="exportOutput" rows="4" readonly placeholder="Exported JSON will appear here"></textarea>
             </div>
