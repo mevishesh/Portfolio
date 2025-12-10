@@ -1,64 +1,119 @@
 // ===== Default data (first time load) =====
 const defaultData = {
-    name: "Your Name",
-    role: "Full Stack Developer & Student",
-
-    // Separate short intro (hero) and full about section
-    intro: "I love building web apps and solving real-world problems with code.",
-    about:
-        "I am a passionate developer who loves building web apps, solving problems, and exploring new technologies.",
-
-    location: "Maharashtra, India",
-    email: "you@example.com",
-    phone: "+91-0000000000",
-    avatarUrl: "",
-    resumeUrl: "",
-    // Skill chips
-    skills: ["HTML", "CSS", "JavaScript", "Python"],
-    // Skill meters (Strength Overview)
-    skillMeters: [
-        { label: "Frontend", level: 80 },
-        { label: "Backend", level: 60 },
-        { label: "Databases", level: 55 },
-        { label: "Python / Scripts", level: 75 }
+    "name": "Vishesh Waghmore",
+    "role": "Student",
+    "about": "Dedicated and ambitious Diplomastudent in Computer Science with a strong interest in Development, Artificial Intelligence and Machine Learning. Seeking an internship opportunity to enhance technical expertise, strengthen problem-solving skills, gain practical knowledge, and contribute meaningfully to real-world projects. Eager to work in a professional environment that values innovation, teamwork, and continuous learning.",
+    "location": "Pune, Maharashtra, India",
+    "email": "visheshwaghmore01@gmail.com",
+    "phone": "+91-8149365202",
+    "avatarUrl": "photo.jpg",
+    "resumeUrl": "VISHESH_RESUME.pdf",
+    "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Python",
+        "C",
+        "C++",
+        "Java",
+        "Git",
+        "DBMS",
+        "OOPS",
+        "Operating System",
+        "Cloud Computing",
+        "Mobile Application Development",
+        "Cyber Security"
     ],
-    education: [
+    "skillMeters": [
         {
-            degree: "Diploma in Computer Engineering",
-            school: "Your College Name",
-            year: "2022 - 2025",
-            details: "Focused on software development, networking, and security."
-        }
-    ],
-    projects: [
-        {
-            title: "Smart & Secure Attendance System",
-            tech: ["Python", "OpenCV", "SQLite"],
-            description:
-                "Face recognition-based attendance system with admin panel and notification features.",
-            github: "",
-            liveDemo: ""
-        }
-    ],
-    services: [
-        {
-            title: "Web Development",
-            description: "Building responsive, modern websites using HTML, CSS and JavaScript."
+            "label": "Frontend",
+            "level": 60
         },
         {
-            title: "Python & Automation",
-            description: "Scripts and tools to automate repetitive tasks and simplify workflows."
+            "label": "Backend",
+            "level": 30
         },
         {
-            title: "Academic & Mini Projects",
-            description: "Smart projects suitable for diplomas, internships and learning."
+            "label": "Database",
+            "level": 30
+        },
+        {
+            "label": "Python",
+            "level": 50
+        },
+        {
+            "label": "C++, Java",
+            "level": 60
+        },
+        {
+            "label": "DSA",
+            "level": 20
         }
     ],
-    social: {
-        github: "",
-        linkedin: "",
-        instagram: "",
-        twitter: ""
+    "education": [
+        {
+            "degree": "Diploma",
+            "school": "Government Polytechnic Pune",
+            "year": "2023-2026",
+            "details": "Diploma in Computer Engineering"
+        }
+    ],
+    "projects": [
+        {
+            "title": "Smart AttendX",
+            "tech": [
+                "Html",
+                "Css",
+                "Js",
+                "Python",
+                "Open CV",
+                "Face-recognition",
+                "SQLite"
+            ],
+            "description": "This system provides advanced attendance management using face and voice recognition.\nAn admin panel is included for user management and tracking records (GUI/web panel design, database management). Admin can start/stop attendance, view attendance, register student, send notification, change profile, change settings, etc.",
+            "github": "https://github.com/mevishesh/SmartAttendX",
+            "liveDemo": ""
+        },
+        {
+            "title": "Shield+",
+            "tech": [
+                "Android Studio"
+            ],
+            "description": "A smart safety application designed to detect emergency situations and send real-time alerts to guardians or authorities. Can send Sos message by clicking button or shaking device, can edit emergency contacts, nearby emergency places and emergency contacts.",
+            "github": "https://github.com/mevishesh/Shield_Plus",
+            "liveDemo": "https://github.com/mevishesh/Shield_Plus/app"
+        },
+        {
+            "title": "Notes",
+            "tech": [
+                "Html",
+                "Css",
+                "Js"
+            ],
+            "description": "The application's structure is built using HTML. Its visual appearance and theme toggles are defined by CSS. All interactive functionality, including creating, editing, and deleting notes, and managing data persistence, is handled by JavaScript and localStorage.",
+            "github": "https://github.com/mevishesh/Notes",
+            "liveDemo": "https://notes-377e5.web.app/"
+        }
+    ],
+    "services": [
+        {
+            "title": "Web Development",
+            "description": "Building responsive, modern websites using HTML, CSS and JavaScript."
+        },
+        {
+            "title": "Python & Automation",
+            "description": "Scripts and tools to automate repetitive tasks and simplify workflows."
+        },
+        {
+            "title": "Academic & Mini Projects",
+            "description": "Smart projects suitable for diplomas, internships and learning."
+        }
+    ],
+    "social": {
+        "github": "https://github.com/mevishesh",
+        "linkedin": "https://www.linkedin.com/in/vishesh-waghmore-5588372b2/",
+        "instagram": "https://www.instagram.com/visheshwaghmore/",
+        "twitter": ""
     }
 };
 
