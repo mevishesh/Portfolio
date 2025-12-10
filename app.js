@@ -793,9 +793,10 @@ function setupAdmin() {
         renderAll();
     });
 
-    // Export data
+    // Export data (MERGED with defaultData so structure is always complete)
     byId("exportDataBtn").addEventListener("click", () => {
-        const text = JSON.stringify(data, null, 2);
+        const exportObj = Object.assign(deepClone(defaultData), data);
+        const text = JSON.stringify(exportObj, null, 2);
         byId("exportOutput").value = text;
     });
 

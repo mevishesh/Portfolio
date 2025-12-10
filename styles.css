@@ -626,6 +626,23 @@ body.theme-light .chip {
     color: #94a3b8;
 }
 
+/* Project / modal links: vertical so Live Demo is under GitHub */
+.card-links {
+    margin-top: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+}
+
+.card-links a {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: #a5b4fc;
+    padding-bottom: 0.1rem;
+    border-bottom: 1px dashed rgba(165, 180, 252, 0.5);
+}
+
 /* Services card */
 .service-card p {
     margin-top: 0.3rem;
