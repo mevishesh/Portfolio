@@ -56,7 +56,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== Floating background orbs (figures) ===== */
+/* ===== Floating background orbs ===== */
 .bg-orb {
     position: fixed;
     border-radius: 999px;
@@ -198,6 +198,11 @@ body.theme-light .navbar {
     padding: 0.3rem 0.6rem;
     cursor: pointer;
     font-size: 0.85rem;
+}
+
+/* Mobile nav toggle (hidden on desktop) */
+.nav-toggle-btn {
+    display: none;
 }
 
 /* ===== Buttons ===== */
@@ -621,22 +626,6 @@ body.theme-light .chip {
     color: #94a3b8;
 }
 
-/* Project-specific */
-.card-links {
-    margin-top: 0.6rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-}
-
-.card-links a {
-    font-size: 0.8rem;
-    text-decoration: none;
-    color: #a5b4fc;
-    padding-bottom: 0.1rem;
-    border-bottom: 1px dashed rgba(165, 180, 252, 0.5);
-}
-
 /* Services card */
 .service-card p {
     margin-top: 0.3rem;
@@ -954,11 +943,38 @@ textarea {
         padding-inline: 5vw;
     }
 
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    /* Hide desktop nav links by default on mobile */
     .nav-links {
         display: none;
     }
 
-    .hero h1 {
-        font-size: 2.2rem;
+    /* Show nav toggle button */
+    .nav-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Mobile nav dropdown */
+    body.nav-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 3.1rem;
+        right: 0;
+        left: 0;
+        padding: 0.7rem 6vw 0.9rem;
+        background: rgba(2, 6, 23, 0.97);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+        gap: 0.4rem;
+    }
+
+    body.theme-light.nav-open .nav-links {
+        background: rgba(255, 255, 255, 0.98);
     }
 }

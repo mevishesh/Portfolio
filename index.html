@@ -32,6 +32,9 @@
             <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
                 <span id="themeIcon">🌙</span>
             </button>
+            <button id="navToggle" class="icon-btn nav-toggle-btn" aria-label="Toggle menu">
+                ☰
+            </button>
             <button id="toggleAdminBtn" class="btn-sm">Edit</button>
         </div>
     </header>
@@ -49,8 +52,9 @@
                     <span class="typing-caret"></span>
                 </h2>
 
+                <!-- Short Intro (separate from About section) -->
                 <p id="heroAbout" class="hero-text">
-                    Intro about you will appear here.
+                    Short intro will appear here.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn">View Projects</a>
@@ -200,8 +204,12 @@
                         <input type="text" id="inputRole" required />
                     </div>
                     <div class="form-row">
-                        <label>Short Intro / About</label>
-                        <textarea id="inputAbout" rows="3"></textarea>
+                        <label>Short Intro (below name)</label>
+                        <textarea id="inputIntro" rows="2" placeholder="1–2 lines for hero section"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label>About Me (section)</label>
+                        <textarea id="inputAbout" rows="3" placeholder="Detailed about me text"></textarea>
                     </div>
                     <div class="form-row">
                         <label>Location</label>

@@ -2,8 +2,12 @@
 const defaultData = {
     name: "Your Name",
     role: "Full Stack Developer & Student",
+
+    // Separate short intro (hero) and full about section
+    intro: "I love building web apps and solving real-world problems with code.",
     about:
         "I am a passionate developer who loves building web apps, solving problems, and exploring new technologies.",
+
     location: "Maharashtra, India",
     email: "you@example.com",
     phone: "+91-0000000000",
@@ -127,27 +131,33 @@ function applyTheme(theme) {
     }
 }
 
-// ===== Typing effect =====
+// ===== Typing effect (restartable when role changes) =====
+let typingVersion = 0;
+
 function startTypingEffect() {
     const el = byId("heroRole");
-    const text = data.role || "";
+    if (!el) return;
+
+    const localVersion = ++typingVersion;
     let idx = 0;
     let deleting = false;
 
     function tick() {
-        if (!el) return;
+        if (localVersion !== typingVersion) return; // stop old loop when new one starts
+        const text = data.role || "";
+
         if (!deleting) {
             el.textContent = text.slice(0, idx + 1);
             idx++;
-            if (idx === text.length) {
+            if (idx >= text.length) {
                 setTimeout(() => {
-                    deleting = true;
+                    if (localVersion === typingVersion) deleting = true;
                 }, 1500);
             }
         } else {
-            el.textContent = text.slice(0, idx - 1);
+            el.textContent = text.slice(0, Math.max(idx - 1, 0));
             idx--;
-            if (idx === 0) {
+            if (idx <= 0) {
                 deleting = false;
             }
         }
@@ -164,10 +174,13 @@ function renderBasic() {
     byId("heroName").textContent = data.name;
     byId("heroNameCard").textContent = data.name;
     byId("heroRoleCard").textContent = data.role;
-    // heroRole text controlled by typing effect
+    // heroRole text is animated by typing effect
 
-    byId("heroAbout").textContent = data.about;
-    byId("aboutText").textContent = data.about;
+    // Short intro in hero (fallback to about)
+    byId("heroAbout").textContent = data.intro || data.about || "";
+
+    // Full about section
+    byId("aboutText").textContent = data.about || "";
 
     byId("heroLocation").textContent = data.location;
     byId("heroPhone").textContent = data.phone;
@@ -210,7 +223,7 @@ function renderBasic() {
     const quickMail = byId("quickMail");
     const quickWhatsApp = byId("quickWhatsApp");
     quickMail.href = `mailto:${data.email}`;
-    const waNumber = data.phone.replace(/[^0-9]/g, "");
+    const waNumber = data.phone ? data.phone.replace(/[^0-9]/g, "") : "";
     if (waNumber) {
         quickWhatsApp.href = `https://wa.me/91${waNumber.slice(-10)}`;
     } else {
@@ -260,7 +273,7 @@ function renderSkillMeters() {
 
         const bar = createEl("div", "meter-bar");
         const fill = createEl("div", "meter-fill");
-        fill.style.width = "0"; // start at 0, will animate when in view
+        fill.style.width = "0";
         bar.appendChild(fill);
 
         card.appendChild(top);
@@ -419,7 +432,6 @@ function renderProjects() {
         if (desc.textContent) card.appendChild(desc);
         if (linksDiv.children.length) card.appendChild(linksDiv);
 
-        // Click to open modal
         card.style.cursor = "pointer";
         card.addEventListener("click", (e) => {
             if (e.target.tagName.toLowerCase() === "a") return;
@@ -465,7 +477,6 @@ function renderServices() {
         container.appendChild(card);
     });
 
-    // Editable list
     const servicesEditable = byId("servicesEditable");
     servicesEditable.innerHTML = "";
     services.forEach((svc, index) => {
@@ -512,7 +523,8 @@ function renderSocial() {
 function renderAdminForms() {
     byId("inputName").value = data.name;
     byId("inputRole").value = data.role;
-    byId("inputAbout").value = data.about;
+    byId("inputIntro").value = data.intro || "";
+    byId("inputAbout").value = data.about || "";
     byId("inputLocation").value = data.location;
     byId("inputEmail").value = data.email;
     byId("inputPhone").value = data.phone;
@@ -526,6 +538,8 @@ function renderAdminForms() {
     byId("inputTwitter").value = data.social.twitter;
 }
 
+let scrollObserver = null;
+
 function renderAll() {
     renderBasic();
     renderSkills();
@@ -535,22 +549,25 @@ function renderAll() {
     renderServices();
     renderSocial();
     renderAdminForms();
-    setupScrollReveal(); // re-init for new elements
+    setupScrollReveal();
 }
 
 // ===== Scroll reveal (IntersectionObserver) =====
 function setupScrollReveal() {
+    if (scrollObserver) {
+        scrollObserver.disconnect();
+    }
+
     const revealEls = document.querySelectorAll(".reveal, .meter-card, .timeline-item, .card");
     const meters = document.querySelectorAll(".meter-card");
 
-    const observer = new IntersectionObserver(
+    scrollObserver = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("reveal-visible");
-                    observer.unobserve(entry.target);
+                    scrollObserver.unobserve(entry.target);
 
-                    // If this is a meter card, animate inner bar
                     if (entry.target.classList.contains("meter-card")) {
                         const fill = entry.target.querySelector(".meter-fill");
                         const idx = Array.from(meters).indexOf(entry.target);
@@ -565,7 +582,7 @@ function setupScrollReveal() {
         { threshold: 0.15 }
     );
 
-    revealEls.forEach((el) => observer.observe(el));
+    revealEls.forEach((el) => scrollObserver.observe(el));
 }
 
 // ===== Admin events =====
@@ -604,7 +621,6 @@ function setupAdmin() {
         const avatar = byId("inputAvatar").value.trim();
         const resume = byId("inputResume").value.trim();
 
-        // Validate formats for local files (if not URL)
         if (avatar && !/\.(jpe?g|png)$/i.test(avatar) && !avatar.startsWith("http")) {
             alert("Profile image must be .jpg or .png (or a full https URL).");
             return;
@@ -615,8 +631,13 @@ function setupAdmin() {
         }
 
         data.name = byId("inputName").value.trim() || data.name;
-        data.role = byId("inputRole").value.trim() || data.role;
-        data.about = byId("inputAbout").value.trim() || data.about;
+        const newRole = byId("inputRole").value.trim();
+        if (newRole) data.role = newRole;
+
+        data.intro = byId("inputIntro").value.trim();
+        const newAbout = byId("inputAbout").value.trim();
+        if (newAbout) data.about = newAbout;
+
         data.location = byId("inputLocation").value.trim();
         data.email = byId("inputEmail").value.trim();
         data.phone = byId("inputPhone").value.trim();
@@ -629,6 +650,7 @@ function setupAdmin() {
 
         saveData();
         renderAll();
+        startTypingEffect(); // restart typing on role change
         alert("Basic info updated!");
     });
 
@@ -768,9 +790,26 @@ function setupThemeToggle() {
     });
 }
 
+// ===== Mobile nav toggle =====
+function setupNavToggle() {
+    const btn = byId("navToggle");
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+        document.body.classList.toggle("nav-open");
+    });
+
+    // Close menu when clicking any nav link
+    const navLinks = document.querySelectorAll(".nav-links a");
+    navLinks.forEach((a) => {
+        a.addEventListener("click", () => {
+            document.body.classList.remove("nav-open");
+        });
+    });
+}
+
 // ===== Init =====
 document.addEventListener("DOMContentLoaded", () => {
-    // Theme first
     const initialTheme = getSavedTheme();
     applyTheme(initialTheme);
 
@@ -778,5 +817,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAdmin();
     setupProjectModalEvents();
     setupThemeToggle();
+    setupNavToggle();
     startTypingEffect();
 });
