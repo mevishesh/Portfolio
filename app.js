@@ -2,6 +2,7 @@
 const defaultData = {
     "name": "Vishesh Waghmore",
     "role": "Student",
+    "intro": "I am a passionate student who loves building web apps, solving problems, and exploring new technologies.",
     "about": "Dedicated and ambitious Diplomastudent in Computer Science with a strong interest in Development, Artificial Intelligence and Machine Learning. Seeking an internship opportunity to enhance technical expertise, strengthen problem-solving skills, gain practical knowledge, and contribute meaningfully to real-world projects. Eager to work in a professional environment that values innovation, teamwork, and continuous learning.",
     "location": "Pune, Maharashtra, India",
     "email": "visheshwaghmore01@gmail.com",
