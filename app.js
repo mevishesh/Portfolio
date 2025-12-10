@@ -35,16 +35,8 @@ const defaultData = {
             "level": 30
         },
         {
-            "label": "Database",
-            "level": 30
-        },
-        {
             "label": "Python",
             "level": 50
-        },
-        {
-            "label": "C++, Java",
-            "level": 60
         },
         {
             "label": "DSA",
